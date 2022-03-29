@@ -20,8 +20,7 @@ void initialize() {
 void deinitialize() {}
 
 void do_plus(float* left, float* right, float* result, size_t count) {
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         a = left[i];
         b = right[i];
 
@@ -38,8 +37,7 @@ void do_plus(float* left, float* right, float* result, size_t count) {
 }
 
 void do_minus(float* left, float* right, float* result, size_t count) {
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         a = left[i];
         b = right[i];
 
@@ -56,8 +54,7 @@ void do_minus(float* left, float* right, float* result, size_t count) {
 }
 
 void do_multiply(float* left, float* right, float* result, size_t count) {
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         a = left[i];
         b = right[i];
 
@@ -74,20 +71,19 @@ void do_multiply(float* left, float* right, float* result, size_t count) {
 }
 
 void do_divide(float* left, float* right, float* result, size_t count) {
-   for (int i = 0; i < count; i++)
-   {
-       a = left[i];
-       b = right[i];
+   for (int i = 0; i < count; i++) {
+        a = left[i];
+        b = right[i];
 
-   	Xil_DCacheFlushRange((INTPTR)&a, sizeof(float));
-       Xil_DCacheFlushRange((INTPTR)&b, sizeof(float));
+   	    Xil_DCacheFlushRange((INTPTR)&a, sizeof(float));
+        Xil_DCacheFlushRange((INTPTR)&b, sizeof(float));
 
-       *flagreg = 0x00000001 | (0x03 << 8);
+        *flagreg = 0x00000001 | (0x03 << 8);
 
-       while (*flagreg & 0x01);
+        while (*flagreg & 0x01);
 
-       Xil_DCacheInvalidateRange((INTPTR)&c, sizeof(float));
+        Xil_DCacheInvalidateRange((INTPTR)&c, sizeof(float));
 
-       result[i] = c;
+        result[i] = c;
    }
 }
